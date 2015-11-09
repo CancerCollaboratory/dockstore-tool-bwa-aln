@@ -30,6 +30,11 @@ description: |
            -1        use the 1st read in a pair (effective with -b)
            -2        use the 2nd read in a pair (effective with -b)
 
+dct:creator:
+  "@id": "http://orcid.org/0000-0002-7681-6415"
+  foaf:name: Brian O'Connor
+  foaf:mbox: "mailto:briandoconnor@gmail.com"
+
 requirements:
   - class: ExpressionEngineRequirement
     id: "#node-engine"
