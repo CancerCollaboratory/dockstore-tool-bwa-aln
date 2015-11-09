@@ -32,6 +32,7 @@ description: |
 
 requirements:
   - class: ExpressionEngineRequirement
+    id: "#node-engine"
     requirements:
     - class: DockerRequirement
       dockerPull: commonworkflowlanguage/nodejs-engine
@@ -44,6 +45,23 @@ inputs:
     type: File
     inputBinding:
       position: 4
+      secondaryFiles:
+        - engine: "#node-engine"
+          script: |
+           {
+            if ((/.*\.fa$/i).test($job['prefix'].path))
+               return [
+                       {"path": $job['prefix'].path+".amb", "class": "File"},
+                       {"path": $job['prefix'].path+".ann", "class": "File"},
+                       {"path": $job['prefix'].path+".pac", "class": "File"},
+                       {"path": $job['prefix'].path+".rpac", "class": "File"},
+                       {"path": $job['prefix'].path+".bwt", "class": "File"},
+                       {"path": $job['prefix'].path+".rbwt", "class": "File"},
+                       {"path": $job['prefix'].path+".sa", "class": "File"},
+                       {"path": $job['prefix'].path+".rsa", "class": "File"}
+                      ];
+            return [];
+           }
 
   - id: "#input"
     type: File

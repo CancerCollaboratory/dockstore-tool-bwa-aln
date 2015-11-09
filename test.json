@@ -10,5 +10,6 @@
     "output": {
         "class": "File",
         "path": "test.sai"
-    }
+    },
+    "output_name": "test.sai"
 }
