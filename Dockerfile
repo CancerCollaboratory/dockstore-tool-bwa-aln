@@ -1,4 +1,5 @@
 FROM ubuntu:15.04
+MAINTAINER Andrey V Kartashov "porter@porter.st"
 MAINTAINER Collaboratory@OICR 
 ENV VERSION=0.5.9
 ENV NAME=bwa
