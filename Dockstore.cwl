@@ -2,9 +2,59 @@
 
 class: CommandLineTool
 
-cwlVersion: draft-3
+cwlVersion: v1.0
 
-description: |
+dct:creator:
+  '@id': http://orcid.org/0000-0001-9102-5681
+  foaf:name: Andrey Kartashov
+  foaf:mbox: mailto:Andrey.Kartashov@cchmc.org
+dct:description: 'Developed at Cincinnati Children’s Hospital Medical Center for the
+  CWL consortium http://commonwl.org/ Original URL: https://github.com/common-workflow-language/workflows'
+dct:contributor:
+  '@id': http://orcid.org/0000-0002-6130-1021
+  foaf:name: Denis Yuen
+  foaf:mbox: mailto:help@cancercollaboratory.org
+requirements:
+- class: DockerRequirement
+  dockerPull: quay.io/collaboratory/dockstore-tool-bwa-aln
+
+inputs:
+  input:
+    type: File
+    inputBinding:
+      position: 5
+
+  prefix:
+    type: File
+    inputBinding:
+      position: 4
+    secondaryFiles:
+    - .amb
+    - .ann
+    - .pac
+    - .rpac
+    - .bwt
+    - .rbwt
+    - .sa
+    - .rsa
+  output_name:
+    type: string
+    inputBinding:
+      position: 5
+      prefix: -f
+  threads:
+    type: int?
+    inputBinding:
+      position: 1
+      prefix: -t
+outputs:
+  output:
+    type: File
+    outputBinding:
+      glob: $(inputs.output_name)
+
+baseCommand: [bwa, aln]
+doc: |
   Usage:   bwa aln [options] <prefix> <in.fq>
 
   Options: -n NUM    max #diff (int) or missing prob under 0.02 err rate (float) [0.04]
@@ -31,60 +81,4 @@ description: |
            -0        use single-end reads only (effective with -b)
            -1        use the 1st read in a pair (effective with -b)
            -2        use the 2nd read in a pair (effective with -b)
-
-dct:creator:
-  "@id": "http://orcid.org/0000-0001-9102-5681"
-  foaf:name: "Andrey Kartashov"
-  foaf:mbox: "mailto:Andrey.Kartashov@cchmc.org"
-
-dct:description: "Developed at Cincinnati Children’s Hospital Medical Center for the CWL consortium http://commonwl.org/ Original URL: https://github.com/common-workflow-language/workflows"
-
-dct:contributor:
-  "@id": "http://orcid.org/0000-0002-6130-1021"
-  foaf:name: Denis Yuen
-  foaf:mbox: "mailto:help@cancercollaboratory.org"
-
-requirements:
-  - class: DockerRequirement
-    dockerPull: quay.io/collaboratory/dockstore-tool-bwa-aln
-
-inputs:
-  - id: "#prefix"
-    type: File
-    inputBinding:
-      position: 4
-    secondaryFiles:
-      - ".amb"
-      - ".ann"
-      - ".pac"
-      - ".rpac"
-      - ".bwt"
-      - ".rbwt"
-      - ".sa"
-      - ".rsa"
-
-  - id: "#input"
-    type: File
-    inputBinding:
-      position: 5
-
-  - id: "#output_name"
-    type: string
-    inputBinding:
-      position: 5
-      prefix: "-f"
-
-  - id: "#threads"
-    type: ["null",int]
-    inputBinding:
-      position: 1
-      prefix: "-t"
-
-outputs:
-  - id: "#output"
-    type: File
-    outputBinding:
-      glob: $(inputs.output_name)
-
-baseCommand: ["bwa","aln"]
 
