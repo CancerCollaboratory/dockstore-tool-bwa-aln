@@ -16,7 +16,7 @@ dct:contributor:
   foaf:mbox: mailto:help@cancercollaboratory.org
 requirements:
 - class: DockerRequirement
-  dockerPull: quay.io/collaboratory/dockstore-tool-bwa-aln
+  dockerPull: quay.io/collaboratory/dockstore-tool-bwa-aln:1.0
 
 inputs:
   input:
